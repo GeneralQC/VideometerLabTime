@@ -132,7 +132,25 @@
     <nav>
       <ul class="pagination justify-content-center mt-3" id="pagination"></ul>
     </nav>
-    <p class="mt-3 fw-bold" id="sumHours">Total Hours: -</p>
+    <p class="mt-3 fw-bold" id="sumHours">Total Hours: - 
+      <div id="statusSummary" class="mt-3">
+        <p class="fw-bold text-primary">Total Status:</p>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            In Process
+            <span class="badge bg-warning text-dark rounded-pill" id="countInProcess">-</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Completed
+            <span class="badge bg-success rounded-pill" id="countCompleted">-</span>
+          </li>
+        </ul>
+        <div class="mt-3">
+          <p class="fw-bold text-primary">In Process Topics:</p>
+          <ul class="list-group" id="inProcessTopics"></ul>
+        </div>
+      </div>
+    </p>
 
     <h4 class="mt-5">Yearly Working Hours Summary</h4>
     <canvas id="yearlyChart" height="100"></canvas>
@@ -215,7 +233,25 @@
       });
 
       renderPagination(data.length);
+      updateStatusSummary(data);  // 👈 เพิ่มตรงนี้
     }
+
+    function updateStatusSummary(data) {
+  const inProcess = data.filter(r => r.status === "In Process");
+  const completed = data.filter(r => r.status === "Completed");
+
+  document.getElementById("countInProcess").textContent = inProcess.length;
+  document.getElementById("countCompleted").textContent = completed.length;
+
+  const topicList = document.getElementById("inProcessTopics");
+  topicList.innerHTML = "";
+  inProcess.forEach(item => {
+    const li = document.createElement("li");
+    li.className = "list-group-item";
+    li.textContent = `${item.topic} (${formatDate(item.date)})`;
+    topicList.appendChild(li);
+  });
+}
 
     function renderPagination(totalItems) {
       const totalPages = Math.ceil(totalItems / itemsPerPage);
