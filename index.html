@@ -108,15 +108,15 @@
     <form id="workForm" class="bg-white shadow-sm p-4 rounded">
       <div class="row g-3">
         <div class="col-12 col-md-4"><label class="form-label">Date</label><input type="date" class="form-control"
-            name="date" ></div>
+            name="date" required></div>
         <div class="col-12 col-md-4"><label class="form-label">Topic</label><input type="text" class="form-control"
-            name="topic" ></div>
+            name="topic"required ></div>
         <div class="col-12 col-md-4"><label class="form-label">Actual Working Hours</label><input type="number"
             step="any" class="form-control" name="actualWorkingHour" ></div>
         <div class="col-12 col-md-6"><label class="form-label">Start Date</label><input type="date" class="form-control"
-            name="startDate" ></div>
+            name="startDate" required></div>
         <div class="col-12 col-md-6"><label class="form-label">Finish Date</label><input type="date"
-            class="form-control" name="finishDate" ></div>
+            class="form-control" name="finishDate" required></div>
         <div class="col-12"><label class="form-label">Status</label>
           <select class="form-control" name="status" required>
             <option value="Completed">In Process</option>
@@ -189,12 +189,13 @@
                 id="editTopic"></div>
             <div class="col-12 col-md-6"><label class="form-label">Hours</label><input type="number" step="any"
                 class="form-control" id="editHour"></div>
-            <div class="col-12 col-md-6"><label class="form-label">Status</label>
-              <select class="form-control" name="status" required>
-                <option value="In Process">In Process</option>
-                <option value="Completed">Completed</option>
-              </select>
-            </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Status</label>
+                  <select class="form-control" name="status" id="editStatus" required>
+                    <option value="In Process">In Process</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </div>
             <div class="col-12 col-md-6"><label class="form-label">Start</label><input type="date" class="form-control"
                 id="editStart"></div>
             <div class="col-12 col-md-6"><label class="form-label">Finish</label><input type="date" class="form-control"
@@ -295,6 +296,8 @@
         pagination.appendChild(li);
       }
     }
+
+    
 
     function openEdit(index) {
       const row = allData[index];
